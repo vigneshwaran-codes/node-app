@@ -1,7 +1,7 @@
 {
   "name": "node-proj",
   "version": "1.0.0",
-  "description": "",
+  "description": "sample node project",
   "main": "index.js",
   "type": "module",
   "scripts": {
