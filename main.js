@@ -77,13 +77,13 @@ async function getPolls (client, filter) {
   return result
 }
 
-async function insertPoll (client, poll) {
-  const result = await client
-    .db('contestants')
-    .collection('poll')
-    .insertMany(poll)
-  console.log('Inserted Succesfully', result)
-}
+// async function insertPoll (client, poll) {
+//   const result = await client
+//     .db('contestants')
+//     .collection('poll')
+//     .insertMany(poll)
+//   console.log('Inserted Succesfully', result)
+// }
 
 createConnection()
 
