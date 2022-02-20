@@ -10,13 +10,18 @@
 
 /* New syntax */
 import express from 'express'
-import { MongoClient } from 'mongodb'
 import dotenv from 'dotenv'
+import { MongoClient } from 'mongodb'
+import { pollRouter } from './routes/poll.js'
 
 dotenv.config()
+// loaded on process .env
 
 const app = express()
 const PORT = process.env.PORT
+
+app.use(express.json())
+
 // const poll = [
 //   {
 //     id: '1',
@@ -48,7 +53,7 @@ const PORT = process.env.PORT
 
 // Create Connection
 
-async function createConnection () {
+export async function createConnection () {
   const MONGO_URL = process.env.MONGO_URI
   // Todo
   const client = new MongoClient(MONGO_URL)
@@ -62,74 +67,13 @@ async function createConnection () {
   }
 }
 
-async function getPollById (client, id) {
-  const result = await client
-    .db('contestants')
-    .collection('poll')
-    .findOne({ id: id })
-  console.log('Succesfully Connected', result)
-  return result
-}
-async function getPolls (client, filter) {
-  const result = await client
-    .db('contestants')
-    .collection('poll')
-    .find(filter)
-    .toArray()
-  console.log('Succesfully Connected', result)
-  return result
-}
-
-// async function insertPoll (client, poll) {
-//   const result = await client
-//     .db('contestants')
-//     .collection('poll')
-//     .insertMany(poll)
-//   console.log('Inserted Succesfully', result)
-// }
-
-createConnection()
-
 app.get('/', (request, response) => {
   response.send('Hello Vigneshwaran K')
 })
 
-app.get('/poll', async (request, response) => {
-  const client = await createConnection()
-  const contestantAll = await getPolls(client, { id: { $gt: 1 } })
-  response.send(contestantAll)
-})
-
-app.get('/poll/name/:companyname', async (request, response) => {
-  const companyname = request.params.companyname
-  const client = await createConnection()
-  const contestants = await getPolls(client, { company: companyname })
-  response.send(contestants)
-})
-
-app.get('/poll/color/:colorname', async (request, response) => {
-  const colorname = request.params.colorname
-  const client = await createConnection()
-  const contestants = await getPolls(client, { color: colorname })
-  response.send(contestants)
-})
-
-app.get('/poll/content/:description', async (request, response) => {
-  const description = request.params.description
-  const client = await createConnection()
-  const contestants = await getPolls(client, { content: { $regex: description, $options: 'i' } })
-  response.send(contestants)
-})
-
-app.get('/poll/:id', async (request, response) => {
-  const id = request.params.id
-
-  // const contestant = poll.filter((data) => data.id === id)
-  // console.log(id, contestant)
-  const client = await createConnection()
-  const contestant = await getPollById(client, id)
-
-  response.send(contestant)
-})
+app.use('/poll', pollRouter)
+// '/poll/:id'
+// '/poll/name/:companyname'
+// post '/poll'
 
 app.listen(PORT, () => console.log('The Server is started', PORT))
