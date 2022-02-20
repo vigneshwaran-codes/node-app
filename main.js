@@ -45,6 +45,7 @@ const PORT = process.env.PORT
 //     content: 'Just for fans'
 //   }
 // ]
+
 async function createConnection () {
   const MONGO_URL = process.env.MONGO_URI
   // Todo
