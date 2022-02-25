@@ -2,6 +2,7 @@ import express from 'express'
 import { createConnection } from '../main.js'
 import { insertUser, getUsers, getUser } from '../helper.js'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const router = express.Router()
 
@@ -40,7 +41,8 @@ router
     const inDbStorePassword = user.password
     const isPasswordMatch = await bcrypt.compare(password, inDbStorePassword)
     if (isPasswordMatch) {
-      response.send({ message: 'Successfull login' })
+      const token = jwt.sign({id: user._id}, process.env.SECRET_KEY)
+      response.send({ message: 'Successfull login', token: token })
     } else {
       response.send({ message: 'Invalid login' })
     }
