@@ -11,6 +11,7 @@
 /* New syntax */
 import express from 'express'
 import dotenv from 'dotenv'
+import bcrypt from 'bcrypt'
 import { MongoClient } from 'mongodb'
 import { pollRouter } from './routes/poll.js'
 
@@ -77,3 +78,12 @@ app.use('/poll', pollRouter)
 // post '/poll'
 
 app.listen(PORT, () => console.log('The Server is started', PORT))
+
+async function genPassword(){
+  const password = 'password@123'
+  const salt = await bcrypt.genSalt(10) //More rounds - more secure -> dowside it takes long time
+  const hashedPassword = await bcrypt.hash(password,salt)
+  console.log(hashedPassword)
+}
+
+genPassword()
