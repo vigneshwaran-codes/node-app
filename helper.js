@@ -30,3 +30,12 @@ export async function insertPoll (client, polls) {
     .insertMany(polls)
   console.log('Inserted Succesfully', result)
 }
+
+export async function insertUser (client, user) {
+  const result = await client
+    .db('contestants')
+    .collection('user')
+    .insertOne(user)
+  console.log('Inserted Succesfully', result)
+  return result
+}
