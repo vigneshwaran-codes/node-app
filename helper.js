@@ -39,3 +39,22 @@ export async function insertUser (client, user) {
   console.log('Inserted Succesfully', result)
   return result
 }
+
+export async function getUsers (client, filter) {
+  const result = await client
+    .db('contestants')
+    .collection('user')
+    .find(filter)
+    .toArray()
+  console.log('Succesfully Connected', result)
+  return result
+}
+
+export async function getUser (client, filter) {
+  const result = await client
+    .db('contestants')
+    .collection('user')
+    .findOne(filter)
+  console.log('Succesfully Connected', result)
+  return result
+}
