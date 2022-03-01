@@ -8,6 +8,7 @@ import dotenv from 'dotenv'
 import { MongoClient } from 'mongodb'
 import { pollRouter } from './routes/poll.js'
 import { userRouter } from './routes/user.js'
+import cors from 'cors'
 
 dotenv.config()
 // loaded on process .env
@@ -16,6 +17,8 @@ const app = express()
 const PORT = process.env.PORT
 
 app.use(express.json())
+
+app.use(cors())
 
 // Create Connection
 
