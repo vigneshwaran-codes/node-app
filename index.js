@@ -6,7 +6,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import { MongoClient } from 'mongodb'
-// import { pollRouter } from './routes/poll.js'
 import { pollRouter } from './routes/poll.js'
 import { userRouter } from './routes/user.js'
 
