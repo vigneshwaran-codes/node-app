@@ -6,6 +6,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import { MongoClient } from 'mongodb'
+// import { pollRouter } from './routes/poll.js'
 import { pollRouter } from './routes/poll.js'
 import { userRouter } from './routes/user.js'
 
@@ -16,35 +17,6 @@ const app = express()
 const PORT = process.env.PORT
 
 app.use(express.json())
-
-// const poll = [
-//   {
-//     id: '1',
-//     company: 'OnePlus',
-//     color: 'red',
-//     lineSpacing: '4px',
-//     content: 'never settle'
-//   },
-//   {
-//     id: '2',
-//     company: 'Apple',
-//     color: 'crimson',
-//     lineSpacing: '3px',
-//     content: 'Think Different ,not too Different'
-//   },
-//   {
-//     id: '3',
-//     company: 'samsung',
-//     color: 'skyblue',
-//     content: 'innovation of Galaxy'
-//   },
-//   {
-//     id: '4',
-//     company: 'Mi',
-//     color: 'orange',
-//     content: 'Just for fans'
-//   }
-// ]
 
 // Create Connection
 
@@ -63,15 +35,15 @@ export async function createConnection () {
 }
 
 app.get('/', (request, response) => {
-  response.send('Hello Vigneshwaran K')
+  response.send('Welcome to my node app')
 })
 
 app.use('/poll', pollRouter)
+// Signup -> /user/signup
+app.use('/user', userRouter)
+
 // '/poll/:id'
 // '/poll/name/:companyname'
 // post '/poll'
-
-// Signup -> /user/signup
-app.use('/user', userRouter)
 
 app.listen(PORT, () => console.log('The Server is started', PORT))
