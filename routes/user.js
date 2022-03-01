@@ -3,6 +3,7 @@ import { createConnection } from '../main.js'
 import { insertUser, getUsers, getUser } from '../helper.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { auth } from '../middleware/auth.js'
 
 const router = express.Router()
 
@@ -10,7 +11,7 @@ const router = express.Router()
 
 router
   .route('/')
-  .get(async (request, response) => {
+  .get(auth, async (request, response) => {
     const client = await createConnection()
     const contestantAll = await getUsers(client, { })
     response.send(contestantAll)
@@ -41,7 +42,7 @@ router
     const inDbStorePassword = user.password
     const isPasswordMatch = await bcrypt.compare(password, inDbStorePassword)
     if (isPasswordMatch) {
-      const token = jwt.sign({id: user._id}, process.env.SECRET_KEY)
+      const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY)
       response.send({ message: 'Successfull login', token: token })
     } else {
       response.send({ message: 'Invalid login' })

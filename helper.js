@@ -58,3 +58,21 @@ export async function getUser (client, filter) {
   console.log('Succesfully Connected', result)
   return result
 }
+
+export async function updatePollById (client, id, newPoll) {
+  const result = await client
+    .db('contestants')
+    .collection('poll')
+    .updateOne({ id: id }, { $set: newPoll })
+  console.log('Succesfully Updated', result)
+  return result
+}
+
+export async function replacePollById (client, id, newPoll) {
+  const result = await client
+    .db('contestants')
+    .collection('poll')
+    .replaceOne({ id: id }, { $set: newPoll })
+  console.log('Succesfully Updated', result)
+  return result
+}
