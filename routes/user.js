@@ -1,5 +1,5 @@
 import express from 'express'
-import { createConnection } from '../main.js'
+import { createConnection } from '../index.js'
 import { insertUser, getUsers, getUser } from '../helper.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'

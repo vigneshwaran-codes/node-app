@@ -1,83 +1,16 @@
-// console.log('put your code inside this file', process.argv)
-// const stringArr = process.argv[2]
-// const arr = JSON.parse(stringArr)
+console.log('put your code inside this file', process.argv)
+const stringArr = process.argv[2]
+const arr = JSON.parse(stringArr)
 
-// console.log('max number is:', Math.max(...arr))
+console.log(arr, typeof arr)
+// let max = arr[0]
 
-/* Older Syntax */
-// const express = require('express')
-// const { MongoClient } = require('MongoDB')
-
-/* New syntax */
-import express from 'express'
-import dotenv from 'dotenv'
-import { MongoClient } from 'mongodb'
-import { pollRouter } from './routes/poll.js'
-import { userRouter } from './routes/user.js'
-
-dotenv.config()
-// loaded on process .env
-
-const app = express()
-const PORT = process.env.PORT
-
-app.use(express.json())
-
-// const poll = [
-//   {
-//     id: '1',
-//     company: 'OnePlus',
-//     color: 'red',
-//     lineSpacing: '4px',
-//     content: 'never settle'
-//   },
-//   {
-//     id: '2',
-//     company: 'Apple',
-//     color: 'crimson',
-//     lineSpacing: '3px',
-//     content: 'Think Different ,not too Different'
-//   },
-//   {
-//     id: '3',
-//     company: 'samsung',
-//     color: 'skyblue',
-//     content: 'innovation of Galaxy'
-//   },
-//   {
-//     id: '4',
-//     company: 'Mi',
-//     color: 'orange',
-//     content: 'Just for fans'
+// arr.forEach((num) => {
+//   if (max < num) {
+//     max = num
 //   }
-// ]
+// })
 
-// Create Connection
+console.log('max number is:', Math.max(...arr))
 
-export async function createConnection () {
-  const MONGO_URL = process.env.MONGO_URI
-  // Todo
-  const client = new MongoClient(MONGO_URL)
-
-  try {
-    await client.connect()
-    return client
-    // getPollById(client, '1')
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-app.get('/', (request, response) => {
-  response.send('Hello Vigneshwaran K')
-})
-
-app.use('/poll', pollRouter)
-// '/poll/:id'
-// '/poll/name/:companyname'
-// post '/poll'
-
-// Signup -> /user/signup
-app.use('/user', userRouter)
-
-app.listen(PORT, () => console.log('The Server is started', PORT))
+// console.log('Max number is:', max)

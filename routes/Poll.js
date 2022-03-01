@@ -1,6 +1,6 @@
 import express from 'express'
 import { getPolls, getPollById, deletePollById, insertPoll, updatePollById, replacePollById } from '../helper.js'
-import { createConnection } from '../main.js'
+import { createConnection } from '../index.js'
 import { auth } from '../middleware/auth.js'
 
 const router = express.Router()
