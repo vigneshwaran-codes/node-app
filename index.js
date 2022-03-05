@@ -40,6 +40,7 @@ app.get('/', (request, response) => {
   response.send('Welcome to my node app')
 })
 
+//  Router
 app.use('/poll', pollRouter)
 // Signup -> /user/signup
 app.use('/user', userRouter)
